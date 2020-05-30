@@ -337,3 +337,154 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   }
 ])
+
+test(
+  `parses imports with resolving 1`,
+  macro,
+  `resolve/a.js`,
+  join(__dirname, `fixtures/resolve/a.js`),
+  []
+)
+
+test(
+  `parses imports with resolving 2`,
+  macro,
+  `resolve/b.js`,
+  join(__dirname, `fixtures/resolve/b.js`),
+  [
+    {
+      isDynamicImport: false,
+      moduleSpecifier: {
+        type: `relative`,
+        isConstant: true,
+        code: `'./a'`,
+        value: `./a`,
+        resolved: join(__dirname, `fixtures/resolve/a.js`)
+      },
+      importClause: {
+        default: `ahem`,
+        named: [
+          { specifier: `x`, binding: `x` },
+          { specifier: `y`, binding: `y` },
+          { specifier: `z`, binding: `b` }
+        ],
+        namespace: undefined
+      }
+    },
+    {
+      isDynamicImport: false,
+      moduleSpecifier: {
+        type: `relative`,
+        isConstant: true,
+        code: `'./wow'`,
+        value: `./wow`,
+        resolved: join(__dirname, `fixtures/resolve/wow/index.js`)
+      },
+      importClause: {
+        default: undefined,
+        named: [{ specifier: `o`, binding: `o` }],
+        namespace: undefined
+      }
+    },
+    {
+      isDynamicImport: false,
+      moduleSpecifier: {
+        type: `relative`,
+        isConstant: true,
+        code: `'./c'`,
+        value: `./c`,
+        resolved: join(__dirname, `fixtures/resolve/c.js`)
+      },
+      importClause: {
+        default: `c`,
+        named: [],
+        namespace: undefined
+      }
+    },
+    {
+      isDynamicImport: false,
+      moduleSpecifier: {
+        type: `package`,
+        isConstant: true,
+        code: `'es-module-lexer'`,
+        value: `es-module-lexer`,
+        resolved: join(
+          __dirname,
+          `../node_modules/.pnpm/registry.npmjs.org/es-module-lexer/0.3.20/node_modules/es-module-lexer/dist/lexer.cjs`
+        )
+      },
+      importClause: {
+        default: undefined,
+        named: [{ specifier: `init`, binding: `init` }],
+        namespace: undefined
+      }
+    }
+  ]
+)
+
+test(
+  `parses imports with resolving 3`,
+  macro,
+  `resolve/c.js`,
+  join(__dirname, `fixtures/resolve/c.js`),
+  []
+)
+
+test(
+  `parses imports with resolving 4`,
+  macro,
+  `resolve/wow/d.js`,
+  join(__dirname, `fixtures/resolve/wow/d.js`),
+  [
+    {
+      isDynamicImport: false,
+      moduleSpecifier: {
+        type: `builtin`,
+        isConstant: true,
+        code: `'fs'`,
+        value: `fs`,
+        resolved: `fs`
+      },
+      importClause: {
+        default: `fs`,
+        named: [],
+        namespace: undefined
+      }
+    }
+  ]
+)
+
+test(
+  `parses imports with resolving 5`,
+  macro,
+  `resolve/wow/index.js`,
+  join(__dirname, `fixtures/resolve/wow/index.js`),
+  [
+    {
+      isDynamicImport: false,
+      moduleSpecifier: {
+        type: `builtin`,
+        isConstant: true,
+        code: `'path'`,
+        value: `path`,
+        resolved: `path`
+      },
+      importClause: {
+        default: undefined,
+        named: [{ specifier: `join`, binding: `join` }],
+        namespace: undefined
+      }
+    },
+    {
+      isDynamicImport: true,
+      moduleSpecifier: {
+        type: `relative`,
+        isConstant: true,
+        code: `\`./d\``,
+        value: `./d`,
+        resolved: join(__dirname, `fixtures/resolve/wow/d.js`)
+      },
+      importClause: undefined
+    }
+  ]
+)

@@ -42,8 +42,8 @@ const parseModuleSpecifier = (
     code: moduleSpecifierString,
     value,
     resolved:
-      resolveFrom != null && isConstant
-        ? resolve(value, resolveFrom)
+      typeof resolveFrom === `string` && isConstant
+        ? resolve(resolveFrom, value)
         : undefined
   }
 }
