@@ -1,0 +1,50 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Coverage
+.nyc_output
+coverage/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of `npm pack`
+*.tgz
+
+# dotenv environment variable files
+.env*
+
+# Mac files
+.DS_Store
+
+# Yarn
+.pnp/
+.pnp.js
+.yarn-integrity
+
+# IntelliJ
+.idea/
+
+# Output
+dist/
