@@ -192,7 +192,7 @@ type Import = {
 #### `Import`
 
 `moduleSpecifier.isConstant` is `true` when the import is not a dynamic import (`isDynamicImport` is `false`), or when
-the import is a dynamic import where the specifier is a simple string literal (e.g. `import('fs')`, `import("fs")`, ` import(``fs``) `).
+the import is a dynamic import where the specifier is a simple string literal (e.g. `import('fs')`, `import("fs")`, `` import(`fs`) ``).
 
 `moduleSpecifier.code` is the module specifier as it was written in the code. For non-constant dynamic imports it could be a complex expression.
 
