@@ -207,7 +207,7 @@ the import is a dynamic import where the specifier is a simple string literal (e
 `importClause.named` is the array of objects representing the named imports of the import statement. It is empty if the import
 statement does not have any named imports. Each object in the array has a `specifier` field set to the imported identifier and a
 `binding` field set to the identifier for accessing the imported value. For example, `import { a, x as y } from 'something` would have the following
-array from `importClause.named`: `[{ specifier: 'a', binding: 'a' }, { specifier: 'x', binding: 'y' }]`.
+array for `importClause.named`: `[{ specifier: 'a', binding: 'a' }, { specifier: 'x', binding: 'y' }]`.
 
 `importClause.namespace` is the namespace import identifier or `undefined` if the import statement does not have a namespace import.
 
