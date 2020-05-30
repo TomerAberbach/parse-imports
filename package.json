@@ -33,7 +33,7 @@
     "lint:prettier": "pnpm run lint:prettier:base -- --write .",
     "lint": "run-s lint:*",
     "test": "ava",
-    "build:base": "babel --delete-dir-on-start -D --no-copy-ignored --keep-file-extension --ignore \"src/**/test.js,src/**/fixtures/**/*\"",
+    "build:base": "babel --delete-dir-on-start -D --no-copy-ignored --keep-file-extension --ignore \"src/**/*.test.js,src/**/fixtures/**/*\"",
     "build:dev": "pnpm run build:base -- -d dist src",
     "build:main": "cross-env NODE_ENV=main pnpm run build:base -- -d dist/main src",
     "build:module": "cross-env NODE_ENV=module pnpm run build:base -- -d dist/module src",
