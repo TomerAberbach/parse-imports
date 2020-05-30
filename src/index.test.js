@@ -320,5 +320,20 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
       named: [],
       namespace: undefined
     }
+  },
+  {
+    isDynamicImport: false,
+    moduleSpecifier: {
+      type: `invalid`,
+      isConstant: true,
+      code: `''`,
+      value: ``,
+      resolved: undefined
+    },
+    importClause: {
+      default: `z`,
+      named: [],
+      namespace: undefined
+    }
   }
 ])

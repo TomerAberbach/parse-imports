@@ -73,3 +73,5 @@ import * as bester from '/absolutely/great'
 console.log(`10/10`)
 
 import "../\r\b130\""
+
+import z from ''
