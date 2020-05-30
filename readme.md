@@ -149,13 +149,13 @@ Type: `string`
 
 The JavaScript code to parse for imports.
 
-### `options`
+#### `options`
 
 Type: `object` (optional)
 
-#### Properties
+##### Properties
 
-##### `resolveFrom`
+###### `resolveFrom`
 
 Type: `string` (optional)\
 Default: `undefined`
