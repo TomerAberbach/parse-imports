@@ -151,13 +151,13 @@ The JavaScript code to parse for imports.
 
 ### `options`
 
-Type: `object`
+Type: `object` (optional)
 
 #### Properties
 
 ##### `resolveFrom`
 
-Type: `string`\
+Type: `string` (optional)\
 Default: `undefined`
 
 If set to a file path, then `moduleSpecifier.resolved` of the returned `Import` instances will be set to the result of calling `require.resolve(moduleSpecifier.value)` from the given file path. Otherwise, will be `undefined`.
@@ -188,6 +188,28 @@ type Import = {
   }
 }
 ```
+
+#### `Import`
+
+`moduleSpecifier.isConstant` is `true` when the import is not a dynamic import (`isDynamicImport` is `false`), or when
+the import is a dynamic import where the specifier is a simple string literal (e.g. `import('fs')`, `import("fs")`, ` import(``fs``) `).
+
+`moduleSpecifier.code` is the module specifier as it was written in the code. For non-constant dynamic imports it could be a complex expression.
+
+`moduleSpecifier.value` is `moduleSpecifier.code` without string literal quotes and unescaped if `moduleSpecifier.isConstant` is `true`. Otherwise, it is `undefined`.
+
+`moduleSpecifier.resolved` is set if the `resolveFrom` option is set and `moduleSpecifier.value` is not `undefined`.
+
+`importClause` is only `undefined` if `isDynamicImport` is `true`.
+
+`importClause.default` is the default import identifier or `undefined` if the import statement does not have a default import.
+
+`importClause.named` is the array of objects representing the named imports of the import statement. It is empty if the import
+statement does not have any named imports. Each object in the array has a `specifier` field set to the imported identifier and a
+`binding` field set to the identifier for accessing the imported value. For example, `import { a, x as y } from 'something` would have the following
+array from `importClause.named`: `[{ specifier: 'a', binding: 'a' }, { specifier: 'x', binding: 'y' }]`.
+
+`importClause.namespace` is the namespace import identifier or `undefined` if the import statement does not have a namespace import.
 
 ## Contributing
 
