@@ -26,5 +26,5 @@ module.exports = {
     eslint,
     prettier
   ],
-  '*.{json,yaml,md},!pnpm-lock.yaml': [prettier]
+  '!(pnpm-lock).{json,yaml,md}': [prettier]
 }
