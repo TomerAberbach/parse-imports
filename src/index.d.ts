@@ -35,7 +35,7 @@ declare namespace parseImport {
     }
     importClause?: {
       default?: string
-      named: string[]
+      named: { specifier: string; binding: string }[]
       namespace?: string
     }
   }
