@@ -41,15 +41,15 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "es-module-lexer": "0.3.19",
+    "es-module-lexer": "0.3.20",
     "slashes": "2.0.2"
   },
   "devDependencies": {
     "@ava/babel": "1.0.1",
-    "@babel/cli": "7.8.4",
-    "@babel/core": "7.9.6",
-    "@babel/preset-env": "7.9.6",
-    "@babel/register": "7.9.0",
+    "@babel/cli": "7.10.1",
+    "@babel/core": "7.10.2",
+    "@babel/preset-env": "7.10.2",
+    "@babel/register": "7.10.1",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
     "ava": "3.8.2",
@@ -66,7 +66,7 @@
     "fast-check": "1.24.2",
     "get-all-files": "2.0.1",
     "husky": "4.2.5",
-    "lint-staged": "10.2.6",
+    "lint-staged": "10.2.7",
     "microbundle": "0.12.0",
     "npm-run-all": "4.1.5",
     "power-assert": "1.6.1",
