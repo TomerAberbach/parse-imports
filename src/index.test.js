@@ -22,14 +22,7 @@ import parseImports from './index'
 const macro = async (t, path, resolveFrom, expectedImports) => {
   const code = await fs.readFile(join(__dirname, `fixtures`, path), `utf8`)
 
-  t.plan(expectedImports.length + 1)
-
-  let i = 0
-  for await (const $import of parseImports(code, { resolveFrom })) {
-    t.deepEqual($import, expectedImports[i++])
-  }
-
-  t.deepEqual(await parseImports.array(code, { resolveFrom }), expectedImports)
+  t.deepEqual([...(await parseImports(code, { resolveFrom }))], expectedImports)
 }
 
 test(`parses imports without resolving`, macro, `no-resolve.js`, false, [

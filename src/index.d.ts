@@ -41,15 +41,11 @@ declare namespace parseImport {
   }
 
   export type Options = { readonly resolveFrom?: string }
-
-  export const array: {
-    (code: string, options?: Options): Promise<Import[]>
-  }
 }
 
 declare const parseImports: {
-  (code: string, options?: parseImport.Options): AsyncIterableIterator<
-    parseImport.Import
+  (code: string, options?: parseImport.Options): Promise<
+    IterableIterator<parseImport.Import>
   >
 }
 

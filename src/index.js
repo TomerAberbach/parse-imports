@@ -18,65 +18,57 @@ import { parse } from 'es-module-lexer'
 import parseModuleSpecifier from './parse-module-specifier'
 import parseImportClause from './parse-import-clause'
 
-async function* parseImports(code, { resolveFrom } = {}) {
+const parseImports = async (code, { resolveFrom } = {}) => {
   const [imports] = await parse(code, resolveFrom ?? undefined)
 
-  for (let {
-    d: dynamicImportStartIndex,
-    ss: statementStartIndex,
-    s: moduleSpecifierStartIndex,
-    e: moduleSpecifierEndIndexExclusive
-  } of imports) {
-    const isDynamicImport = dynamicImportStartIndex > -1
+  return (function* () {
+    for (let {
+      d: dynamicImportStartIndex,
+      ss: statementStartIndex,
+      s: moduleSpecifierStartIndex,
+      e: moduleSpecifierEndIndexExclusive
+    } of imports) {
+      const isDynamicImport = dynamicImportStartIndex > -1
 
-    // Include string literal quotes in character range
-    if (!isDynamicImport) {
-      moduleSpecifierStartIndex--
-      moduleSpecifierEndIndexExclusive++
-    }
-
-    const moduleSpecifierString = code.substring(
-      moduleSpecifierStartIndex,
-      moduleSpecifierEndIndexExclusive
-    )
-    const moduleSpecifier = parseModuleSpecifier(moduleSpecifierString, {
-      isDynamicImport,
-      resolveFrom
-    })
-
-    let importClause
-    if (!isDynamicImport) {
-      let importClauseString = code
-        .substring(
-          statementStartIndex + `import`.length,
-          moduleSpecifierStartIndex
-        )
-        .trim()
-      if (importClauseString.endsWith(`from`)) {
-        importClauseString = importClauseString.substring(
-          0,
-          importClauseString.length - `from`.length
-        )
+      // Include string literal quotes in character range
+      if (!isDynamicImport) {
+        moduleSpecifierStartIndex--
+        moduleSpecifierEndIndexExclusive++
       }
-      importClause = parseImportClause(importClauseString)
+
+      const moduleSpecifierString = code.substring(
+        moduleSpecifierStartIndex,
+        moduleSpecifierEndIndexExclusive
+      )
+      const moduleSpecifier = parseModuleSpecifier(moduleSpecifierString, {
+        isDynamicImport,
+        resolveFrom
+      })
+
+      let importClause
+      if (!isDynamicImport) {
+        let importClauseString = code
+          .substring(
+            statementStartIndex + `import`.length,
+            moduleSpecifierStartIndex
+          )
+          .trim()
+        if (importClauseString.endsWith(`from`)) {
+          importClauseString = importClauseString.substring(
+            0,
+            importClauseString.length - `from`.length
+          )
+        }
+        importClause = parseImportClause(importClauseString)
+      }
+
+      yield {
+        isDynamicImport,
+        moduleSpecifier,
+        importClause
+      }
     }
-
-    yield {
-      isDynamicImport,
-      moduleSpecifier,
-      importClause
-    }
-  }
-}
-
-parseImports.array = async (code, options) => {
-  const array = []
-
-  for await (const $import of parseImports(code, options)) {
-    array.push($import)
-  }
-
-  return array
+  })()
 }
 
 export default parseImports

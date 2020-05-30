@@ -40,13 +40,13 @@ const code = `
 `
 
 const main = async () => {
-  // Lazily iterate of async iterable of imports
-  for await (const $import of parseImports(code)) {
+  // Lazily iterate over iterable of imports
+  for (const $import of await parseImports(code)) {
     console.log($import)
   }
 
   // Or get as an array of imports
-  const imports = await parseImports.array(code)
+  const imports = [...(await parseImports(code))]
 
   console.log(imports[0])
   //=>
@@ -137,15 +137,9 @@ const main = async () => {
 
 ## API
 
-### Functions
+### `parseImports(code[, options]) -> Promise<IterableIterator<Import>>`
 
-#### `parseImports(code[, options]) -> AsyncIterableIterator<Import>`
-
-Returns a lazy [async iterable/iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator) that asynchronously iterates over the imports in `code`.
-
-#### `parseImports.array(code[, options]) -> Promise<Import[]>`
-
-Returns a `Promise` containing the array of imports in `code`.
+Returns a `Promise` resolving to a lazy [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)/[iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) that iterates over the imports in `code`.
 
 ### Parameters
 
@@ -155,13 +149,13 @@ Type: `string`
 
 The JavaScript code to parse for imports.
 
-#### `options`
+### `options`
 
 Type: `object`
 
-##### Properties
+#### Properties
 
-###### `resolveFrom`
+##### `resolveFrom`
 
 Type: `string`\
 Default: `undefined`
