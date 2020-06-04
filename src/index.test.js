@@ -410,7 +410,7 @@ test(
         value: `es-module-lexer`,
         resolved: join(
           __dirname,
-          `../node_modules/.pnpm/registry.npmjs.org/es-module-lexer/0.3.20/node_modules/es-module-lexer/dist/lexer.cjs`
+          `../node_modules/.pnpm/es-module-lexer@0.3.20/node_modules/es-module-lexer/dist/lexer.cjs`
         )
       },
       importClause: {
