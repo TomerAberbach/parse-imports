@@ -173,6 +173,7 @@ type ModuleSpecifierType =
   | 'relative'
   | 'builtin'
   | 'package'
+  | 'unknown'
 
 type Import = {
   isDynamicImport: boolean
@@ -195,6 +196,14 @@ type Import = {
 
 `moduleSpecifier.isConstant` is `true` when the import is not a dynamic import (`isDynamicImport` is `false`), or when
 the import is a dynamic import where the specifier is a simple string literal (e.g. `import('fs')`, `import("fs")`, `` import(`fs`) ``).
+
+If `moduleSpecifier.isConstant` is `false`, then `moduleSpecifier.type` is `'unknown'`. Otherwise, it set according to the following rules:
+
+- `'invalid'` if the module specifier is the empty string
+- `'absolute'` if the module specifier is an absolute file path
+- `'relative'` if the module specifier is a relative file path
+- `'builtin'` if the module specifier is the name of a builtin Node.js package
+- `'package'` otherwise
 
 `moduleSpecifier.code` is the module specifier as it was written in the code. For non-constant dynamic imports it could be a complex expression.
 
