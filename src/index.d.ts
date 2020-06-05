@@ -23,6 +23,7 @@ declare namespace parseImport {
     | 'relative'
     | 'builtin'
     | 'package'
+    | 'unknown'
 
   export type Import = {
     isDynamicImport: boolean
