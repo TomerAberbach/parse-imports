@@ -1,5 +1,7 @@
 # Parse Imports
 
+[![NPM version](https://img.shields.io/npm/v/parse-imports.svg)](https://www.npmjs.com/package/parse-imports)
+
 > A blazing fast ES module imports parser.
 
 ## Features
