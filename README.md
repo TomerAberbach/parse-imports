@@ -217,7 +217,7 @@ If `moduleSpecifier.isConstant` is `false`, then `moduleSpecifier.type` is `'unk
 
 `importClause.named` is the array of objects representing the named imports of the import statement. It is empty if the import
 statement does not have any named imports. Each object in the array has a `specifier` field set to the imported identifier and a
-`binding` field set to the identifier for accessing the imported value. For example, `import { a, x as y } from 'something` would have the following
+`binding` field set to the identifier for accessing the imported value. For example, `import { a, x as y } from 'something'` would have the following
 array for `importClause.named`: `[{ specifier: 'a', binding: 'a' }, { specifier: 'x', binding: 'y' }]`.
 
 `importClause.namespace` is the namespace import identifier or `undefined` if the import statement does not have a namespace import.
