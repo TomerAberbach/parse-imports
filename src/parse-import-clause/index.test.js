@@ -20,6 +20,8 @@ import parseImportClause from './index'
 const macro = (t, importClauseString, importClause) => {
   t.deepEqual(parseImportClause(importClauseString), importClause)
 }
+
+// eslint-disable-next-line default-param-last
 macro.title = (providedTitle = ``, importClauseString, importClause) =>
   `${providedTitle} parseImportClause(${importClauseString}) = ${JSON.stringify(
     importClause

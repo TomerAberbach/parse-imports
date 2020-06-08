@@ -22,6 +22,8 @@ import parseType from './parse-type'
 const macro = (t, moduleSpecifier, type) => {
   t.is(parseType(moduleSpecifier), type)
 }
+
+// eslint-disable-next-line default-param-last
 macro.title = (providedTitle = ``, moduleSpecifier, type) =>
   `${providedTitle} parses ${type} import ${moduleSpecifier}`.trim()
 

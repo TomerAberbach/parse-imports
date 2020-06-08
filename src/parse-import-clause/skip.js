@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const separatorRegex = /^(?:\s+|,)$/
+export const separatorRegex = /^(?:\s+|,)$/u
 
 export const skipSeparators = (imported, i) => {
   while (i < imported.length && separatorRegex.test(imported[i])) {

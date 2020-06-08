@@ -17,7 +17,9 @@
 // Assumes the string is syntactically valid
 const isConstantStringLiteral = stringLiteral => {
   const quote = [`'`, `"`, `\``].find(
-    quote => stringLiteral.startsWith(quote) && stringLiteral.endsWith(quote)
+    quoteCandidate =>
+      stringLiteral.startsWith(quoteCandidate) &&
+      stringLiteral.endsWith(quoteCandidate)
   )
 
   if (quote == null) {

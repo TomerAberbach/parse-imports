@@ -32,9 +32,8 @@ const parseNamedImports = (importClauseString, i) => {
           specifier: components[0],
           binding: components[components.length - 1]
         }
-      } else {
-        return { specifier: namedImport, binding: namedImport }
       }
+      return { specifier: namedImport, binding: namedImport }
     })
     .filter(({ specifier }) => specifier.length > 0)
 

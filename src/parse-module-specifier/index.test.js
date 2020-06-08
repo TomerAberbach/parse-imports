@@ -32,7 +32,9 @@ const macro = (
 
   t.deepEqual(moduleSpecifier, expectedModuleSpecifier)
 }
+
 macro.title = (
+  // eslint-disable-next-line default-param-last
   providedTitle = ``,
   { moduleSpecifierString, isDynamicImport, resolveFrom },
   expectedModuleSpecifier
