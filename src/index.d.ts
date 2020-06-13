@@ -16,7 +16,7 @@
 
 /// <reference types="node"/>
 
-declare namespace parseImport {
+declare namespace parseImports {
   export type ModuleSpecifierType =
     | 'invalid'
     | 'absolute'
@@ -45,8 +45,8 @@ declare namespace parseImport {
 }
 
 declare const parseImports: {
-  (code: string, options?: parseImport.Options): Promise<
-    IterableIterator<parseImport.Import>
+  (code: string, options?: parseImports.Options): Promise<
+    IterableIterator<parseImports.Import>
   >
 }
 
