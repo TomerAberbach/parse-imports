@@ -47,6 +47,25 @@
   "browserslist": [
     "node >= 10"
   ],
+  "commitlint": {
+    "extends": "@commitlint/config-conventional"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "pnpm run test"
+    }
+  },
+  "ava": {
+    "babel": true,
+    "require": [
+      "@babel/register"
+    ],
+    "files": [
+      "**/{*.,}test.js"
+    ]
+  },
   "dependencies": {
     "es-module-lexer": "0.3.26",
     "slashes": "2.0.2"
