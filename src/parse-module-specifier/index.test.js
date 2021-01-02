@@ -95,7 +95,7 @@ const simpleLiteral = (quote, escapes = []) =>
   fc
     .stringOf(
       fc
-        .string(1, 1)
+        .string({ minLength: 1, maxLength: 1 })
         .filter(character => ![quote, `\\`, ...escapes].includes(character))
     )
     .map(string => `${quote}${string}${quote}`)
@@ -110,14 +110,15 @@ testProp(
     ),
     fc.boolean()
   ],
-  (moduleSpecifierString, isDynamicImport) => {
+  (t, moduleSpecifierString, isDynamicImport) => {
     const { isConstant, value } = parseModuleSpecifier(moduleSpecifierString, {
       isDynamicImport
     })
-    return (
-      isConstant &&
-      value ===
-        moduleSpecifierString.substring(1, moduleSpecifierString.length - 1)
+
+    t.true(isConstant)
+    t.is(
+      value,
+      moduleSpecifierString.substring(1, moduleSpecifierString.length - 1)
     )
   },
   { numRuns: 300 }
@@ -127,9 +128,11 @@ const escapedLiteral = (quote, escapes = [], extra = []) =>
   fc
     .stringOf(
       fc.oneof(
-        fc.string(1, 1).map(character => `\\${character}`),
         fc
-          .string(1, 1)
+          .string({ minLength: 1, maxLength: 1 })
+          .map(character => `\\${character}`),
+        fc
+          .string({ minLength: 1, maxLength: 1 })
           .filter(character => ![quote, `\\`, ...escapes].includes(character)),
         ...extra
       )
@@ -139,18 +142,23 @@ const escapedLiteral = (quote, escapes = [], extra = []) =>
 testProp(
   `parses escaped literals as constant`,
   [fc.oneof(escapedLiteral(`'`), escapedLiteral(`"`)), fc.boolean()],
-  (moduleSpecifierString, isDynamicImport) =>
-    parseModuleSpecifier(moduleSpecifierString, isDynamicImport).isConstant ===
-    true,
+  (t, moduleSpecifierString, isDynamicImport) => {
+    t.true(
+      parseModuleSpecifier(moduleSpecifierString, isDynamicImport).isConstant
+    )
+  },
   { numRuns: 200 }
 )
 
 testProp(
   `parses escaped template literals as constant`,
   [escapedLiteral(`\``, [`$`, `{`], [fc.constant(`\\\${`)])],
-  moduleSpecifierString =>
-    parseModuleSpecifier(moduleSpecifierString, { isDynamicImport: true })
-      .isConstant === true,
+  (t, moduleSpecifierString) => {
+    t.true(
+      parseModuleSpecifier(moduleSpecifierString, { isDynamicImport: true })
+        .isConstant
+    )
+  },
   { numRuns: 500 }
 )
 

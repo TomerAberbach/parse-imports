@@ -34,8 +34,9 @@ test(macro, `fs`, `builtin`)
 test(macro, `parse-imports`, `package`)
 
 const prefixedString = prefix => fc.string().map(string => `${prefix}${string}`)
-const assertType = type => moduleSpecifier =>
-  parseType(moduleSpecifier) === type
+const assertType = type => (t, moduleSpecifier) => {
+  t.is(parseType(moduleSpecifier), type)
+}
 
 testProp(
   `parses absolute imports`,
