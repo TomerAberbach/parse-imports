@@ -228,10 +228,10 @@ Stars are always welcome!
 
 For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/parse-imports/issues/new).
 
-For pull requests, please read the [contributing guidelines](https://github.com/TomerAberbach/parse-imports/blob/master/contributing.md).
+For pull requests, please read the [contributing guidelines](https://github.com/TomerAberbach/parse-imports/blob/main/contributing.md).
 
 ## License
 
-[Apache 2.0](https://github.com/TomerAberbach/parse-imports/blob/master/license)
+[Apache 2.0](https://github.com/TomerAberbach/parse-imports/blob/main/license)
 
 This is not an official Google product.
