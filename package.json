@@ -58,7 +58,10 @@
       "run-s \"lint:prettier:base -- --write {@}\" --",
       "run-s \"lint:eslint:base -- --fix {@}\" --"
     ],
-    "*.ts": "run-s \"lint:prettier:base -- --write {@}\" --",
+    "*.ts": [
+      "addlicense",
+      "run-s \"lint:prettier:base -- --write {@}\" --"
+    ],
     "*.{json,yml,md}": "run-s \"lint:prettier:base -- --write {@}\" --"
   },
   "tsd": {
