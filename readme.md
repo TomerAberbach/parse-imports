@@ -152,7 +152,7 @@ console.log(imports[9])
 
 ## API
 
-### `parseImports(code[, options]) -> Promise<IterableIterator<Import>>`
+### `parseImports(code[, options]) -> Promise<Iterable<Import>>`
 
 Returns a `Promise` resolving to a lazy
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)/[iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol)
