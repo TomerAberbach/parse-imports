@@ -20,86 +20,78 @@
     "url": "https://github.com/TomerAberbach/parse-imports/issues"
   },
   "license": "Apache 2.0",
-  "main": "dist/main/index.js",
-  "module": "dist/module/index.js",
   "files": [
-    "dist"
+    "src"
   ],
+  "type": "module",
+  "engines": {
+    "node": ">= 12.17"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not op_mini all"
+  ],
+  "exports": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./src/index.d.ts",
   "scripts": {
     "license": "addlicense $(git diff --name-only HEAD)",
-    "lint:eslint:base": "eslint --cache --ext mjs,cjs,js --ignore-path .gitignore --ignore-pattern \"**/fixtures/**/*\"",
-    "lint:eslint": "pnpm run lint:eslint:base -- --fix .",
-    "lint:prettier:base": "prettier --loglevel silent",
-    "lint:prettier": "pnpm run lint:prettier:base -- --write .",
+    "prepare": "pnpx --no-install simple-git-hooks",
+    "lint:prettier:base": "prettier --loglevel silent --ignore-path .eslintignore",
+    "lint:prettier": "run-s \"lint:prettier:base -- --write .\"",
+    "lint:eslint:base": "eslint --cache --ext js --ignore-path .eslintignore",
+    "lint:eslint": "run-s \"lint:eslint:base -- --fix .\"",
     "lint": "run-s lint:*",
-    "test": "ava",
-    "build:base": "babel --delete-dir-on-start -D --no-copy-ignored --keep-file-extension --ignore \"src/**/*.test.js,src/**/fixtures/**/*\"",
-    "build:dev": "pnpm run build:base -- -d dist src",
-    "build:main": "cross-env NODE_ENV=main pnpm run build:base -- -d dist/main src",
-    "build:module": "cross-env NODE_ENV=module pnpm run build:base -- -d dist/module src",
-    "build:prod": "run-p build:main build:module",
-    "clean": "rimraf dist"
+    "test:js": "ava",
+    "test:ts": "tsd",
+    "test": "run-s test:*",
+    "coverage": "c8 run-s test:js"
   },
+  "prettier": "@tomer/prettier-config",
   "eslintConfig": {
     "extends": "@tomer"
   },
-  "prettier": "@tomer/prettier-config",
-  "browserslist": [
-    "node >= 10"
-  ],
+  "lint-staged": {
+    "*.js": [
+      "addlicense",
+      "run-s \"lint:prettier:base -- --write {@}\" --",
+      "run-s \"lint:eslint:base -- --fix {@}\" --"
+    ],
+    "*.ts": "run-s \"lint:prettier:base -- --write {@}\" --",
+    "*.{json,yml,md}": "run-s \"lint:prettier:base -- --write {@}\" --"
+  },
+  "tsd": {
+    "directory": "./test"
+  },
   "commitlint": {
     "extends": "@commitlint/config-conventional"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "pnpm run test"
-    }
-  },
-  "ava": {
-    "babel": true,
-    "require": [
-      "@babel/register"
-    ],
-    "files": [
-      "**/{*.,}test.js"
-    ]
+  "simple-git-hooks": {
+    "pre-commit": "pnpx --no-install lint-staged",
+    "commit-msg": "pnpx --no-install commitlint -e"
   },
   "dependencies": {
-    "es-module-lexer": "0.3.26",
+    "es-module-lexer": "0.4.1",
     "slashes": "2.0.2"
   },
   "devDependencies": {
-    "@ava/babel": "1.0.1",
-    "@babel/cli": "7.12.10",
-    "@babel/core": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "@babel/register": "7.12.10",
-    "@commitlint/cli": "11.0.0",
-    "@commitlint/config-conventional": "11.0.0",
-    "@tomer/eslint-config": "0.0.14",
-    "@tomer/prettier-config": "0.0.2",
-    "@types/node": "14.14.19",
+    "@commitlint/cli": "12.1.4",
+    "@commitlint/config-conventional": "12.1.4",
+    "@tomer/eslint-config": "0.1.1",
+    "@tomer/prettier-config": "0.1.0",
     "ava": "3.15.0",
-    "ava-fast-check": "4.0.0",
-    "babel-eslint": "10.1.0",
-    "babel-plugin-unassert": "3.0.1",
-    "babel-preset-power-assert": "3.0.0",
-    "command-exists": "1.2.9",
-    "cross-env": "7.0.3",
-    "eslint": "7.16.0",
-    "fast-check": "2.10.0",
-    "husky": "4.3.6",
-    "lint-staged": "10.5.3",
+    "ava-fast-check": "4.0.2",
+    "c8": "7.7.2",
+    "eslint": "7.27.0",
+    "fast-check": "2.14.0",
+    "lint-staged": "11.0.0",
     "npm-run-all": "4.1.5",
-    "power-assert": "1.6.1",
-    "prettier": "2.2.1",
-    "rimraf": "3.0.2",
+    "prettier": "2.3.0",
     "shift-codegen": "7.0.3",
-    "shift-fuzzer": "1.0.2"
-  },
-  "engines": {
-    "node": ">= 10"
+    "shift-fuzzer": "1.0.2",
+    "simple-git-hooks": "2.4.1",
+    "tsd": "0.15.1",
+    "typescript": "4.3.2"
   }
 }

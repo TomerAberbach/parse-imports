@@ -17,7 +17,7 @@
 import { builtinModules } from 'module'
 import test from 'ava'
 import { testProp, fc } from 'ava-fast-check'
-import parseType from './parse-type'
+import parseType from '../../src/parse-module-specifier/parse-type.js'
 
 const macro = (t, moduleSpecifier, type) => {
   t.is(parseType(moduleSpecifier), type)

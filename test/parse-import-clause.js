@@ -15,7 +15,7 @@
  */
 
 import test from 'ava'
-import parseImportClause from './index'
+import parseImportClause from '../src/parse-import-clause/index.js'
 
 const macro = (t, importClauseString, importClause) => {
   t.deepEqual(parseImportClause(importClauseString), importClause)

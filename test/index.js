@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-import { join } from 'path'
+import { join, dirname } from 'path'
 import { promises as fs } from 'fs'
+import { fileURLToPath } from 'url'
 import test from 'ava'
-import parseImports from './index'
+import parseImports from '../src/index.js'
+
+const currentDirectoryPath = dirname(fileURLToPath(import.meta.url))
 
 const macro = async (t, path, resolveFrom, expectedImports) => {
-  const code = await fs.readFile(join(__dirname, `fixtures`, path), `utf8`)
+  const code = await fs.readFile(
+    join(currentDirectoryPath, `fixtures`, path),
+    `utf8`
+  )
 
   t.deepEqual([...(await parseImports(code, { resolveFrom }))], expectedImports)
 }
@@ -342,7 +348,7 @@ test(
   `parses imports with resolving 1`,
   macro,
   `resolve/a.js`,
-  join(__dirname, `fixtures/resolve/a.js`),
+  join(currentDirectoryPath, `fixtures/resolve/a.js`),
   []
 )
 
@@ -350,7 +356,7 @@ test(
   `parses imports with resolving 2`,
   macro,
   `resolve/b.js`,
-  join(__dirname, `fixtures/resolve/b.js`),
+  join(currentDirectoryPath, `fixtures/resolve/b.js`),
   [
     {
       isDynamicImport: false,
@@ -359,7 +365,7 @@ test(
         isConstant: true,
         code: `'./a'`,
         value: `./a`,
-        resolved: join(__dirname, `fixtures/resolve/a.js`)
+        resolved: join(currentDirectoryPath, `fixtures/resolve/a.js`)
       },
       importClause: {
         default: `ahem`,
@@ -378,7 +384,7 @@ test(
         isConstant: true,
         code: `'./wow'`,
         value: `./wow`,
-        resolved: join(__dirname, `fixtures/resolve/wow/index.js`)
+        resolved: join(currentDirectoryPath, `fixtures/resolve/wow/index.js`)
       },
       importClause: {
         default: undefined,
@@ -393,7 +399,7 @@ test(
         isConstant: true,
         code: `'./c'`,
         value: `./c`,
-        resolved: join(__dirname, `fixtures/resolve/c.js`)
+        resolved: join(currentDirectoryPath, `fixtures/resolve/c.js`)
       },
       importClause: {
         default: `c`,
@@ -409,8 +415,8 @@ test(
         code: `'es-module-lexer'`,
         value: `es-module-lexer`,
         resolved: join(
-          __dirname,
-          `../node_modules/.pnpm/es-module-lexer@0.3.26/node_modules/es-module-lexer/dist/lexer.cjs`
+          currentDirectoryPath,
+          `../node_modules/.pnpm/es-module-lexer@0.4.1/node_modules/es-module-lexer/dist/lexer.cjs`
         )
       },
       importClause: {
@@ -426,7 +432,7 @@ test(
   `parses imports with resolving 3`,
   macro,
   `resolve/c.js`,
-  join(__dirname, `fixtures/resolve/c.js`),
+  join(currentDirectoryPath, `fixtures/resolve/c.js`),
   []
 )
 
@@ -434,7 +440,7 @@ test(
   `parses imports with resolving 4`,
   macro,
   `resolve/wow/d.js`,
-  join(__dirname, `fixtures/resolve/wow/d.js`),
+  join(currentDirectoryPath, `fixtures/resolve/wow/d.js`),
   [
     {
       isDynamicImport: false,
@@ -458,7 +464,7 @@ test(
   `parses imports with resolving 5`,
   macro,
   `resolve/wow/index.js`,
-  join(__dirname, `fixtures/resolve/wow/index.js`),
+  join(currentDirectoryPath, `fixtures/resolve/wow/index.js`),
   [
     {
       isDynamicImport: false,
@@ -482,7 +488,7 @@ test(
         isConstant: true,
         code: `\`./d\``,
         value: `./d`,
-        resolved: join(__dirname, `fixtures/resolve/wow/d.js`)
+        resolved: join(currentDirectoryPath, `fixtures/resolve/wow/d.js`)
       },
       importClause: undefined
     }

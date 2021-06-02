@@ -17,8 +17,10 @@
 import test from 'ava'
 import { testProp, fc } from 'ava-fast-check'
 import { fuzzLiteralStringExpression } from 'shift-fuzzer'
-import render from 'shift-codegen'
-import parseModuleSpecifier from './index'
+import shiftCodegen from 'shift-codegen'
+import parseModuleSpecifier from '../../src/parse-module-specifier/index.js'
+
+const { default: render } = shiftCodegen
 
 const macro = (
   t,

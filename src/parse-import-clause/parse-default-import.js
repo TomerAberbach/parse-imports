@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { skipNonSeparators } from './skip'
+import { skipNonSeparators } from './skip.js'
 
 const parseDefaultImport = (importClauseString, i) => {
   const startIndex = i

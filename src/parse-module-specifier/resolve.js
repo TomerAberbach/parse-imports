@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
+import { createRequire } from 'module'
 import { dirname } from 'path'
+
+const require = createRequire(import.meta.url)
 
 const resolve = (from, to) => {
   try {

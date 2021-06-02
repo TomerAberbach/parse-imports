@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { separatorRegex } from './skip'
-import parseNamedImports from './parse-named-imports'
-import parseNamespaceImport from './parse-namespace-import'
-import parseDefaultImport from './parse-default-import'
+import { separatorRegex } from './skip.js'
+import parseNamedImports from './parse-named-imports.js'
+import parseNamespaceImport from './parse-namespace-import.js'
+import parseDefaultImport from './parse-default-import.js'
 
 // Assumes import clause is syntactically valid
 const parseImportClause = importClauseString => {

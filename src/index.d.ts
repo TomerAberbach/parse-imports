@@ -14,40 +14,37 @@
  * limitations under the License.
  */
 
-/// <reference types="node"/>
+export type Options = {
+  readonly resolveFrom?: string
+}
 
-declare namespace parseImports {
-  export type ModuleSpecifierType =
-    | 'invalid'
-    | 'absolute'
-    | 'relative'
-    | 'builtin'
-    | 'package'
-    | 'unknown'
+export type ModuleSpecifierType =
+  | 'invalid'
+  | 'absolute'
+  | 'relative'
+  | 'builtin'
+  | 'package'
+  | 'unknown'
 
-  export type Import = {
-    isDynamicImport: boolean
-    moduleSpecifier: {
-      type: ModuleSpecifierType
-      isConstant: boolean
-      code: string
-      value?: string
-      resolved?: string
-    }
-    importClause?: {
-      default?: string
-      named: { specifier: string; binding: string }[]
-      namespace?: string
-    }
+export type Import = {
+  isDynamicImport: boolean
+  moduleSpecifier: {
+    type: ModuleSpecifierType
+    isConstant: boolean
+    code: string
+    value?: string
+    resolved?: string
   }
-
-  export type Options = { readonly resolveFrom?: string }
+  importClause?: {
+    default?: string
+    named: Array<{ specifier: string; binding: string }>
+    namespace?: string
+  }
 }
 
-declare const parseImports: {
-  (code: string, options?: parseImports.Options): Promise<
-    IterableIterator<parseImports.Import>
-  >
-}
+declare const parseImports: (
+  code: string,
+  options?: Options
+) => Promise<Iterable<Import>>
 
-export = parseImports
+export default parseImports

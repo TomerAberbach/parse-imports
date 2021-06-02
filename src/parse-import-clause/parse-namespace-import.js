@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { skipNonSeparators, skipSeparators } from './skip'
+import { skipNonSeparators, skipSeparators } from './skip.js'
 
 const parseNamespaceImport = (importClauseString, i) => {
   i++

@@ -16,9 +16,9 @@
 
 import assert from 'assert'
 import { stripSlashes } from 'slashes'
-import isConstantStringLiteral from './is-constant-string-literal'
-import parseType from './parse-type'
-import resolve from './resolve'
+import isConstantStringLiteral from './is-constant-string-literal.js'
+import parseType from './parse-type.js'
+import resolve from './resolve.js'
 
 const parseModuleSpecifier = (
   moduleSpecifierString,
