@@ -28,11 +28,22 @@ const macro = async (t, path, resolveFrom, expectedImports) => {
     `utf8`
   )
 
+  t.log(
+    [...(await parseImports(code, { resolveFrom }))].map(
+      ({ startIndex, endIndex }) => ({
+        startIndex,
+        endIndex,
+        s: code.substring(startIndex, endIndex)
+      })
+    )
+  )
   t.deepEqual([...(await parseImports(code, { resolveFrom }))], expectedImports)
 }
 
 test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
   {
+    startIndex: 673,
+    endIndex: 694,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `relative`,
@@ -48,6 +59,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 695,
+    endIndex: 726,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `package`,
@@ -63,6 +76,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 774,
+    endIndex: 797,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `package`,
@@ -78,6 +93,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 841,
+    endIndex: 862,
     isDynamicImport: true,
     moduleSpecifier: {
       type: `relative`,
@@ -89,6 +106,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     importClause: undefined
   },
   {
+    startIndex: 866,
+    endIndex: 914,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `builtin`,
@@ -104,6 +123,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 916,
+    endIndex: 947,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `absolute`,
@@ -119,6 +140,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 948,
+    endIndex: 981,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `absolute`,
@@ -134,6 +157,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 982,
+    endIndex: 1017,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `absolute`,
@@ -149,6 +174,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1018,
+    endIndex: 1060,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `absolute`,
@@ -164,6 +191,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1062,
+    endIndex: 1105,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `relative`,
@@ -183,6 +212,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1117,
+    endIndex: 1129,
     isDynamicImport: true,
     moduleSpecifier: {
       type: `package`,
@@ -194,6 +225,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     importClause: undefined
   },
   {
+    startIndex: 1143,
+    endIndex: 1162,
     isDynamicImport: true,
     moduleSpecifier: {
       type: `unknown`,
@@ -205,6 +238,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     importClause: undefined
   },
   {
+    startIndex: 1164,
+    endIndex: 1187,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `relative`,
@@ -220,6 +255,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1188,
+    endIndex: 1230,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `relative`,
@@ -238,6 +275,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1232,
+    endIndex: 1252,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `package`,
@@ -253,6 +292,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1254,
+    endIndex: 1298,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `package`,
@@ -268,6 +309,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1300,
+    endIndex: 1331,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `package`,
@@ -283,6 +326,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1333,
+    endIndex: 1353,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `relative`,
@@ -298,6 +343,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1355,
+    endIndex: 1398,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `absolute`,
@@ -313,6 +360,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1422,
+    endIndex: 1443,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `relative`,
@@ -328,6 +377,8 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
     }
   },
   {
+    startIndex: 1445,
+    endIndex: 1461,
     isDynamicImport: false,
     moduleSpecifier: {
       type: `invalid`,
@@ -359,6 +410,8 @@ test(
   join(currentDirectoryPath, `fixtures/resolve/b.js`),
   [
     {
+      startIndex: 597,
+      endIndex: 637,
       isDynamicImport: false,
       moduleSpecifier: {
         type: `relative`,
@@ -378,6 +431,8 @@ test(
       }
     },
     {
+      startIndex: 638,
+      endIndex: 663,
       isDynamicImport: false,
       moduleSpecifier: {
         type: `relative`,
@@ -393,6 +448,8 @@ test(
       }
     },
     {
+      startIndex: 664,
+      endIndex: 683,
       isDynamicImport: false,
       moduleSpecifier: {
         type: `relative`,
@@ -408,6 +465,8 @@ test(
       }
     },
     {
+      startIndex: 684,
+      endIndex: 722,
       isDynamicImport: false,
       moduleSpecifier: {
         type: `package`,
@@ -443,6 +502,8 @@ test(
   join(currentDirectoryPath, `fixtures/resolve/wow/d.js`),
   [
     {
+      startIndex: 597,
+      endIndex: 616,
       isDynamicImport: false,
       moduleSpecifier: {
         type: `builtin`,
@@ -467,6 +528,8 @@ test(
   join(currentDirectoryPath, `fixtures/resolve/wow/index.js`),
   [
     {
+      startIndex: 597,
+      endIndex: 624,
       isDynamicImport: false,
       moduleSpecifier: {
         type: `builtin`,
@@ -482,6 +545,8 @@ test(
       }
     },
     {
+      startIndex: 676,
+      endIndex: 689,
       isDynamicImport: true,
       moduleSpecifier: {
         type: `relative`,
