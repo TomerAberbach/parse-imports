@@ -94,7 +94,7 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
   },
   {
     startIndex: 841,
-    endIndex: 861,
+    endIndex: 862,
     isDynamicImport: true,
     moduleSpecifier: {
       type: `relative`,
@@ -213,7 +213,7 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
   },
   {
     startIndex: 1117,
-    endIndex: 1128,
+    endIndex: 1129,
     isDynamicImport: true,
     moduleSpecifier: {
       type: `package`,
@@ -226,7 +226,7 @@ test(`parses imports without resolving`, macro, `no-resolve.js`, false, [
   },
   {
     startIndex: 1143,
-    endIndex: 1161,
+    endIndex: 1162,
     isDynamicImport: true,
     moduleSpecifier: {
       type: `unknown`,
@@ -546,7 +546,7 @@ test(
     },
     {
       startIndex: 676,
-      endIndex: 688,
+      endIndex: 689,
       isDynamicImport: true,
       moduleSpecifier: {
         type: `relative`,
