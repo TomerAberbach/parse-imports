@@ -67,6 +67,10 @@ const parseImports = async (code, { resolveFrom } = {}) => {
         }
 
         yield {
+          startIndex: isDynamicImport
+            ? dynamicImportStartIndex
+            : statementStartIndex,
+          endIndex: moduleSpecifierEndIndexExclusive,
           isDynamicImport,
           moduleSpecifier,
           importClause

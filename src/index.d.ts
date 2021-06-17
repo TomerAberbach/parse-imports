@@ -27,6 +27,8 @@ export type ModuleSpecifierType =
   | 'unknown'
 
 export type Import = {
+  startIndex: number
+  endIndex: number
   isDynamicImport: boolean
   moduleSpecifier: {
     type: ModuleSpecifierType
