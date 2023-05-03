@@ -35,10 +35,7 @@
     "format": "tomer format",
     "lint": "tomer lint",
     "typecheck": "tomer typecheck",
-    "test": "tomer test",
-    "build": "tomer build",
-    "clean": "tomer clean dist",
-    "prepublishOnly": "tomer build"
+    "test": "tomer test"
   },
   "prettier": "tomer/prettier-config",
   "dependencies": {
