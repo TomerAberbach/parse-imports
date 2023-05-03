@@ -32,6 +32,11 @@ const parseImports = async (code, { resolveFrom } = {}) => {
         s: moduleSpecifierStartIndex,
         e: moduleSpecifierEndIndexExclusive,
       } of imports) {
+        const isImportMeta = dynamicImportStartIndex === -2
+        if (isImportMeta) {
+          continue
+        }
+
         const isDynamicImport = dynamicImportStartIndex > -1
 
         // Include string literal quotes in character range
