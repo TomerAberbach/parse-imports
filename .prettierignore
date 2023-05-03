@@ -1,4 +1,5 @@
-test/fixtures
-node_modules
-.eslintcache
-coverage
+/test/fixtures/
+/node_modules/
+/coverage/
+/dist/
+*.tsbuildinfo
