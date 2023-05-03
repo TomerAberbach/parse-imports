@@ -19,7 +19,7 @@ const isConstantStringLiteral = stringLiteral => {
   const quote = [`'`, `"`, `\``].find(
     quoteCandidate =>
       stringLiteral.startsWith(quoteCandidate) &&
-      stringLiteral.endsWith(quoteCandidate)
+      stringLiteral.endsWith(quoteCandidate),
   )
 
   if (quote == null) {
@@ -35,7 +35,7 @@ const isConstantStringLiteral = stringLiteral => {
     // Check for interpolated value in template literal
     if (
       quote === `\`` &&
-      stringLiteral.substring(i, i + 2) === `\${` &&
+      stringLiteral.slice(i, i + 2) === `\${` &&
       stringLiteral[i - 1] !== `\\`
     ) {
       return false

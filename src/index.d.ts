@@ -39,14 +39,14 @@ export type Import = {
   }
   importClause?: {
     default?: string
-    named: Array<{ specifier: string; binding: string }>
+    named: { specifier: string; binding: string }[]
     namespace?: string
   }
 }
 
 declare const parseImports: (
   code: string,
-  options?: Options
+  options?: Options,
 ) => Promise<Iterable<Import>>
 
 export default parseImports

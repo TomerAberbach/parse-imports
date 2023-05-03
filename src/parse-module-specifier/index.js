@@ -15,14 +15,14 @@
  */
 
 import assert from 'assert'
-import { stripSlashes } from 'slashes'
+import { removeSlashes } from 'slashes'
 import isConstantStringLiteral from './is-constant-string-literal.js'
 import parseType from './parse-type.js'
 import resolve from './resolve.js'
 
 const parseModuleSpecifier = (
   moduleSpecifierString,
-  { isDynamicImport, resolveFrom }
+  { isDynamicImport, resolveFrom },
 ) => {
   assert(isDynamicImport || isConstantStringLiteral(moduleSpecifierString))
 
@@ -30,9 +30,7 @@ const parseModuleSpecifier = (
     !isDynamicImport || isConstantStringLiteral(moduleSpecifierString)
       ? {
           isConstant: true,
-          value: stripSlashes(
-            moduleSpecifierString.substring(1, moduleSpecifierString.length - 1)
-          )
+          value: removeSlashes(moduleSpecifierString.slice(1, -1)),
         }
       : { isConstant: false, value: undefined }
 
@@ -44,7 +42,7 @@ const parseModuleSpecifier = (
     resolved:
       typeof resolveFrom === `string` && isConstant
         ? resolve(resolveFrom, value)
-        : undefined
+        : undefined,
   }
 }
 

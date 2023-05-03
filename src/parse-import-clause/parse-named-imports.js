@@ -22,7 +22,7 @@ const parseNamedImports = (importClauseString, i) => {
   }
 
   const namedImports = importClauseString
-    .substring(startIndex, i++)
+    .slice(startIndex, i++)
     .split(`,`)
     .map(namedImport => {
       namedImport = namedImport.trim()
@@ -30,7 +30,7 @@ const parseNamedImports = (importClauseString, i) => {
         const components = namedImport.split(` `)
         return {
           specifier: components[0],
-          binding: components[components.length - 1]
+          binding: components[components.length - 1],
         }
       }
       return { specifier: namedImport, binding: namedImport }

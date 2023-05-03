@@ -26,8 +26,8 @@ const parseNamespaceImport = (importClauseString, i) => {
   i = skipNonSeparators(importClauseString, i)
 
   return {
-    namespaceImport: importClauseString.substring(startIndex, i),
-    i
+    namespaceImport: importClauseString.slice(startIndex, i),
+    i,
   }
 }
 
