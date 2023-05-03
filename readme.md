@@ -9,9 +9,6 @@
   <a href="https://github.com/TomerAberbach/parse-imports/actions">
     <img src="https://github.com/TomerAberbach/parse-imports/workflows/CI/badge.svg" alt="CI" />
   </a>
-  <a href="https://bundlephobia.com/result?p=parse-imports">
-    <img src="https://badgen.net/bundlephobia/minzip/parse-imports" alt="minzip size" />
-  </a>
 </div>
 
 <div align="center">
@@ -193,6 +190,8 @@ instances will be set to the result of calling
 will be `undefined`.
 
 ### Types
+
+<!-- eslint-skip -->
 
 ```ts
 type ModuleSpecifierType =

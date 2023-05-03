@@ -21,7 +21,7 @@ import parseImportClause from './parse-import-clause/index.js'
 const parseImports = async (code, { resolveFrom } = {}) => {
   const [imports] = await parse(
     code,
-    resolveFrom == null ? undefined : resolveFrom
+    resolveFrom == null ? undefined : resolveFrom,
   )
 
   return {
@@ -30,7 +30,7 @@ const parseImports = async (code, { resolveFrom } = {}) => {
         d: dynamicImportStartIndex,
         ss: statementStartIndex,
         s: moduleSpecifierStartIndex,
-        e: moduleSpecifierEndIndexExclusive
+        e: moduleSpecifierEndIndexExclusive,
       } of imports) {
         const isDynamicImport = dynamicImportStartIndex > -1
 
@@ -40,50 +40,44 @@ const parseImports = async (code, { resolveFrom } = {}) => {
           moduleSpecifierEndIndexExclusive++
         }
 
-        const moduleSpecifierString = code.substring(
+        const moduleSpecifierString = code.slice(
           moduleSpecifierStartIndex,
-          moduleSpecifierEndIndexExclusive
+          moduleSpecifierEndIndexExclusive,
         )
         const moduleSpecifier = parseModuleSpecifier(moduleSpecifierString, {
           isDynamicImport,
-          resolveFrom
+          resolveFrom,
         })
 
         let importClause
         if (!isDynamicImport) {
           let importClauseString = code
-            .substring(
+            .slice(
               statementStartIndex + `import`.length,
-              moduleSpecifierStartIndex
+              moduleSpecifierStartIndex,
             )
             .trim()
           if (importClauseString.endsWith(`from`)) {
-            importClauseString = importClauseString.substring(
+            importClauseString = importClauseString.slice(
               0,
-              importClauseString.length - `from`.length
+              Math.max(0, importClauseString.length - `from`.length),
             )
           }
           importClause = parseImportClause(importClauseString)
         }
 
         yield {
-          ...(isDynamicImport
-            ? {
-                startIndex: dynamicImportStartIndex,
-
-                // Include the closing parenthesis
-                endIndex: moduleSpecifierEndIndexExclusive + 1
-              }
-            : {
-                startIndex: statementStartIndex,
-                endIndex: moduleSpecifierEndIndexExclusive
-              }),
+          startIndex: statementStartIndex,
+          // Include the closing parenthesis for dynamic import
+          endIndex: isDynamicImport
+            ? moduleSpecifierEndIndexExclusive + 1
+            : moduleSpecifierEndIndexExclusive,
           isDynamicImport,
           moduleSpecifier,
-          importClause
+          importClause,
         }
       }
-    }
+    },
   }
 }
 

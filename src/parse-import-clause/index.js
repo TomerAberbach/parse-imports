@@ -34,7 +34,7 @@ const parseImportClause = importClauseString => {
       let newNamedImports
       ;({ namedImports: newNamedImports, i } = parseNamedImports(
         importClauseString,
-        i
+        i,
       ))
       namedImports.push(...newNamedImports)
     } else if (importClauseString[i] === `*`) {
@@ -47,7 +47,7 @@ const parseImportClause = importClauseString => {
   return {
     default: defaultImport,
     namespace: namespaceImport,
-    named: namedImports
+    named: namedImports,
   }
 }
 

@@ -20,7 +20,7 @@ const parseDefaultImport = (importClauseString, i) => {
   const startIndex = i
   i = skipNonSeparators(importClauseString, i)
 
-  return { defaultImport: importClauseString.substring(startIndex, i), i }
+  return { defaultImport: importClauseString.slice(startIndex, i), i }
 }
 
 export default parseDefaultImport
