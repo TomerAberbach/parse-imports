@@ -75,3 +75,5 @@ console.log(`10/10`)
 import "../\r\b130\""
 
 import z from ''
+
+const wow = import.meta.url
