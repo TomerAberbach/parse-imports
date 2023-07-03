@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { parse } from 'es-module-lexer'
-import parseModuleSpecifier from './parse-module-specifier/index.js'
 import parseImportClause from './parse-import-clause/index.js'
+import parseModuleSpecifier from './parse-module-specifier/index.js'
 
 const parseImports = async (code, { resolveFrom } = {}) => {
   const [imports] = await parse(

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { builtinModules } from 'module'
 import { fc, testProp } from 'tomer'
 import parseType from '../../src/parse-module-specifier/parse-type.js'
