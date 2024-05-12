@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import parseImportClause from '../src/parse-import-clause/index.js'
 
 // Import syntax: https://www.ecma-international.org/ecma-262/#sec-imports

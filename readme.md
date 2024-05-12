@@ -229,7 +229,7 @@ expression.
 `moduleSpecifier.isConstant` is `true` when the import is not a dynamic import
 (`isDynamicImport` is `false`), or when the import is a dynamic import where the
 specifier is a simple string literal (e.g. `import('fs')`, `import("fs")`,
-`` import(`fs`) ``).
+``import(`fs`)``).
 
 If `moduleSpecifier.isConstant` is `false`, then `moduleSpecifier.type` is
 `'unknown'`. Otherwise, it is set according to the following rules:

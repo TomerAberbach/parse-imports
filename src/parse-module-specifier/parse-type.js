@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import module from 'module'
+
+import module from 'node:module'
 
 const builtinModules = new Set(module.builtinModules)
 

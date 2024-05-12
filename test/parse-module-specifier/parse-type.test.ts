@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { builtinModules } from 'module'
-import { fc, testProp } from 'tomer'
+
+import { builtinModules } from 'node:module'
+import { fc, test } from 'tomer'
 import parseType from '../../src/parse-module-specifier/parse-type.js'
 
 test.each([
@@ -50,32 +51,27 @@ test.each([
 const prefixedString = (prefix: string) =>
   fc.string().map(string => `${prefix}${string}`)
 
-testProp(`parses absolute imports`, [prefixedString(`/`)], moduleSpecifier => {
+test.prop([prefixedString(`/`)])(`parses absolute imports`, moduleSpecifier => {
   const type = parseType(moduleSpecifier)
 
   expect(type).toBe(`absolute`)
 })
 
-testProp(
-  `parses relative imports`,
-  [
-    fc.oneof(
-      prefixedString(`.`),
-      prefixedString(`./`),
-      prefixedString(`..`),
-      prefixedString(`../`),
-    ),
-  ],
-  moduleSpecifier => {
-    const type = parseType(moduleSpecifier)
+test.prop([
+  fc.oneof(
+    prefixedString(`.`),
+    prefixedString(`./`),
+    prefixedString(`..`),
+    prefixedString(`../`),
+  ),
+])(`parses relative imports`, moduleSpecifier => {
+  const type = parseType(moduleSpecifier)
 
-    expect(type).toBe(`relative`)
-  },
-)
+  expect(type).toBe(`relative`)
+})
 
-testProp(
+test.prop([fc.constantFrom(...builtinModules)])(
   `parses builtin imports`,
-  [fc.constantFrom(...builtinModules)],
   moduleSpecifier => {
     const type = parseType(moduleSpecifier)
 
@@ -83,21 +79,15 @@ testProp(
   },
 )
 
-testProp(
-  `parses package imports`,
-  [
-    fc
-      .string()
-      .filter(
-        string =>
-          string.length > 1 &&
-          !string.startsWith(`/`) &&
-          !string.startsWith(`.`),
-      ),
-  ],
-  moduleSpecifier => {
-    const type = parseType(moduleSpecifier)
+test.prop([
+  fc
+    .string()
+    .filter(
+      string =>
+        string.length > 1 && !string.startsWith(`/`) && !string.startsWith(`.`),
+    ),
+])(`parses package imports`, moduleSpecifier => {
+  const type = parseType(moduleSpecifier)
 
-    expect(type).toBe(`package`)
-  },
-)
+  expect(type).toBe(`package`)
+})

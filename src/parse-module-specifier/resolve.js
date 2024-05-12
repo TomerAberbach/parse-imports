@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createRequire } from 'module'
-import { dirname } from 'path'
+
+import { createRequire } from 'node:module'
+import { dirname } from 'node:path'
 
 const require = createRequire(import.meta.url)
 

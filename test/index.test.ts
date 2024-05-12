@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { promises as fs } from 'fs'
-import { dirname, join } from 'path'
+
+import fs from 'node:fs/promises'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { expectTypeOf } from 'tomer'
-import { fileURLToPath } from 'url'
-import parseImports, { type Import } from '../src/index.js'
+import parseImports from '../src/index.js'
+import type { Import } from '../src/index.js'
 
 const currentDirectoryPath = dirname(fileURLToPath(import.meta.url))
 
@@ -455,7 +457,7 @@ test.each([
           value: `es-module-lexer`,
           resolved: join(
             currentDirectoryPath,
-            `../node_modules/.pnpm/es-module-lexer@1.3.0/node_modules/es-module-lexer/dist/lexer.cjs`,
+            `../node_modules/.pnpm/es-module-lexer@1.5.2/node_modules/es-module-lexer/dist/lexer.cjs`,
           ),
         },
         importClause: {
