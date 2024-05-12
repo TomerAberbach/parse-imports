@@ -75,6 +75,8 @@ console.log(imports[5])
 //   isDynamicImport: false,
 //   moduleSpecifier: {
 //     type: 'absolute',
+//     startIndex: 182,
+//     endIndex: 186,
 //     isConstant: true,
 //     code: '"/v"',
 //     value: '/v',
