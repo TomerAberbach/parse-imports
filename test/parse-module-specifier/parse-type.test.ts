@@ -81,7 +81,10 @@ test.prop([
     .string()
     .filter(
       string =>
-        string.length > 1 && !string.startsWith(`/`) && !string.startsWith(`.`),
+        !builtinModules.includes(string) &&
+        string.length > 1 &&
+        !string.startsWith(`/`) &&
+        !string.startsWith(`.`),
     ),
 ])(`parses package imports`, moduleSpecifier => {
   const type = parseType(moduleSpecifier)
