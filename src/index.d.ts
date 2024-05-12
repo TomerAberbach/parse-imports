@@ -32,6 +32,8 @@ export type Import = {
   isDynamicImport: boolean
   moduleSpecifier: {
     type: ModuleSpecifierType
+    startIndex: number
+    endIndex: number
     isConstant: boolean
     code: string
     value?: string

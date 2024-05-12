@@ -49,10 +49,14 @@ const parseImports = async (code, { resolveFrom } = {}) => {
           moduleSpecifierStartIndex,
           moduleSpecifierEndIndexExclusive,
         )
-        const moduleSpecifier = parseModuleSpecifier(moduleSpecifierString, {
-          isDynamicImport,
-          resolveFrom,
-        })
+        const moduleSpecifier = {
+          startIndex: moduleSpecifierStartIndex,
+          endIndex: moduleSpecifierEndIndexExclusive,
+          ...parseModuleSpecifier(moduleSpecifierString, {
+            isDynamicImport,
+            resolveFrom,
+          }),
+        }
 
         let importClause
         if (!isDynamicImport) {
