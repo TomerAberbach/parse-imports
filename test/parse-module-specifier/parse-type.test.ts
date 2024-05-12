@@ -70,14 +70,11 @@ test.prop([
   expect(type).toBe(`relative`)
 })
 
-test.prop([fc.constantFrom(...builtinModules)])(
-  `parses builtin imports`,
-  moduleSpecifier => {
-    const type = parseType(moduleSpecifier)
+test.each(builtinModules)(`parses builtin imports - %p`, moduleSpecifier => {
+  const type = parseType(moduleSpecifier)
 
-    expect(type).toBe(`builtin`)
-  },
-)
+  expect(type).toBe(`builtin`)
+})
 
 test.prop([
   fc
