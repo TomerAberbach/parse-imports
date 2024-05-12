@@ -69,6 +69,8 @@ console.log(imports[0])
 //   isDynamicImport: false,
 //   moduleSpecifier: {
 //     type: 'package',
+//     startIndex: 17,
+//     endIndex: 20,
 //     isConstant: true,
 //     code: `'b'`,
 //     value: 'b',
@@ -89,6 +91,8 @@ console.log(imports[1])
 //   isDynamicImport: false,
 //   moduleSpecifier: {
 //     type: 'relative',
+//     startIndex: 42,
+//     endIndex: 47,
 //     isConstant: true,
 //     code: `'./d'`,
 //     value: './d',
@@ -109,6 +113,8 @@ console.log(imports[5])
 //   isDynamicImport: false,
 //   moduleSpecifier: {
 //     type: 'absolute',
+//     startIndex: 182,
+//     endIndex: 186,
 //     isConstant: true,
 //     code: '"/v"',
 //     value: '/v',
@@ -132,6 +138,8 @@ console.log(imports[7])
 //   isDynamicImport: true,
 //   moduleSpecifier: {
 //     type: 'package',
+//     startIndex: 245,
+//     endIndex: 248,
 //     isConstant: true,
 //     code: '"w"',
 //     value: 'w',
@@ -148,6 +156,8 @@ console.log(imports[8])
 //   isDynamicImport: true,
 //   moduleSpecifier: {
 //     type: 'unknown',
+//     startIndex: 267,
+//     endIndex: 276,
 //     isConstant: false,
 //     code: '"x" + "y"',
 //     value: undefined,
@@ -208,6 +218,8 @@ type Import = {
   isDynamicImport: boolean
   moduleSpecifier: {
     type: ModuleSpecifierType
+    startIndex: number
+    endIndex: number
     isConstant: boolean
     code: string
     value?: string
@@ -225,6 +237,8 @@ type Import = {
 
 `code.substring(startIndex, endIndex)` returns the full import statement or
 expression.
+`code.substring(moduleSpecifier.startIndex, moduleSpecifier.endIndex)` returns
+the module specifier including quotes.
 
 `moduleSpecifier.isConstant` is `true` when the import is not a dynamic import
 (`isDynamicImport` is `false`), or when the import is a dynamic import where the
