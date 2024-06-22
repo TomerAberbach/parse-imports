@@ -36,7 +36,7 @@ $ npm i parse-imports
 ## Usage
 
 ```js
-import parseImports from 'parse-imports'
+import { parseImports } from 'parse-imports'
 
 const code = `
   import a from 'b'
@@ -169,35 +169,13 @@ console.log(imports[8])
 
 ## API
 
-### `parseImports(code[, options]) -> Promise<Iterable<Import>>`
+Use `parseImports` when you're able to await a `Promise` result and
+`parseImportsSync` otherwise.
 
-Returns a `Promise` resolving to a lazy
-[iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)/[iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol)
-that iterates over the imports in `code`.
+> [!IMPORTANT] You can only call `parseImportsSync` once the WASM has loaded.
+> You can be sure this has happened by awaiting the exported `wasmLoadPromise`.
 
-### Parameters
-
-#### `code`
-
-Type: `string`
-
-The JavaScript code to parse for imports.
-
-#### `options`
-
-Type: `object` (optional)
-
-##### Properties
-
-###### `resolveFrom`
-
-Type: `string` (optional)\
-Default: `undefined`
-
-If set to a file path, then `moduleSpecifier.resolved` of the returned `Import`
-instances will be set to the result of calling
-`require.resolve(moduleSpecifier.value)` from the given file path. Otherwise,
-will be `undefined`.
+See the [type definitions](./src/index.d.ts) for details.
 
 ### Types
 

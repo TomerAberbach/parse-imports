@@ -14,15 +14,25 @@
  * limitations under the License.
  */
 
-import { parse } from 'es-module-lexer'
+import { init, parse } from 'es-module-lexer'
 import parseImportClause from './parse-import-clause/index.js'
 import parseModuleSpecifier from './parse-module-specifier/index.js'
 
-const parseImports = async (code, { resolveFrom } = {}) => {
-  const [imports] = await parse(
-    code,
-    resolveFrom == null ? undefined : resolveFrom,
-  )
+export const wasmLoadPromise = init
+
+export const parseImports = async (code, options) => {
+  await wasmLoadPromise
+  return parseImportsSync(code, options)
+}
+
+export const parseImportsSync = (code, { resolveFrom } = {}) => {
+  const result = parse(code, resolveFrom == null ? undefined : resolveFrom)
+  if (!Array.isArray(result)) {
+    throw new TypeError(
+      `Expected WASM to be loaded before calling parseImportsSync`,
+    )
+  }
+  const [imports] = result
 
   return {
     *[Symbol.iterator]() {
@@ -89,5 +99,3 @@ const parseImports = async (code, { resolveFrom } = {}) => {
     },
   }
 }
-
-export default parseImports
