@@ -18,7 +18,11 @@ import fs from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { expectTypeOf } from 'tomer'
-import { parseImports, parseImportsSync } from '../src/index.js'
+import {
+  parseImports,
+  parseImportsSync,
+  wasmLoadPromise,
+} from '../src/index.js'
 import type { Import } from '../src/index.js'
 
 const currentDirectoryPath = dirname(fileURLToPath(import.meta.url))
@@ -601,6 +605,7 @@ test.each([
       join(currentDirectoryPath, `fixtures`, path),
       `utf8`,
     )
+    await wasmLoadPromise
 
     const parsedImportsSync = [...parseImportsSync(code, { resolveFrom })]
     const parsedImports = [...(await parseImports(code, { resolveFrom }))]
