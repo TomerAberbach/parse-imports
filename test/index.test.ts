@@ -517,7 +517,7 @@ test.each([
           value: `es-module-lexer`,
           resolved: join(
             currentDirectoryPath,
-            `../node_modules/.pnpm/es-module-lexer@1.5.2/node_modules/es-module-lexer/dist/lexer.cjs`,
+            `../node_modules/.pnpm/es-module-lexer@1.5.3/node_modules/es-module-lexer/dist/lexer.cjs`,
           ),
         },
         importClause: {
