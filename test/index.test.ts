@@ -18,10 +18,20 @@ import fs from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { expectTypeOf } from 'tomer'
-import parseImports from '../src/index.js'
+import {
+  parseImports,
+  parseImportsSync,
+  wasmLoadPromise,
+} from '../src/index.js'
 import type { Import } from '../src/index.js'
 
 const currentDirectoryPath = dirname(fileURLToPath(import.meta.url))
+
+test(`parseImportsSync throws before WASM load`, () => {
+  expect(() => parseImportsSync(``)).toThrow(
+    new Error(`Expected WASM to be loaded before calling parseImportsSync`),
+  )
+})
 
 test.each([
   {
@@ -595,7 +605,9 @@ test.each([
       join(currentDirectoryPath, `fixtures`, path),
       `utf8`,
     )
+    await wasmLoadPromise
 
+    const parsedImportsSync = [...parseImportsSync(code, { resolveFrom })]
     const parsedImports = [...(await parseImports(code, { resolveFrom }))]
 
     console.log(
@@ -610,6 +622,7 @@ test.each([
         code.slice(startIndex, endIndex),
       ),
     )
+    expect(parsedImportsSync).toStrictEqual(expectedImports)
     expect(parsedImports).toStrictEqual(expectedImports)
   },
 )
@@ -624,4 +637,14 @@ test(`types`, () => {
   expectTypeOf(parseImports(`some code`)).toMatchTypeOf<
     Promise<Iterable<Import>>
   >(parseImports(`some code`, { resolveFrom: `./wow` }))
+
+  expectTypeOf(parseImportsSync(`some code`)).toMatchTypeOf<Iterable<Import>>(
+    parseImportsSync(`some code`),
+  )
+  expectTypeOf(parseImportsSync(`some code`)).toMatchTypeOf<Iterable<Import>>(
+    parseImportsSync(`some code`, {}),
+  )
+  expectTypeOf(parseImportsSync(`some code`)).toMatchTypeOf<Iterable<Import>>(
+    parseImportsSync(`some code`, { resolveFrom: `./wow` }),
+  )
 })
