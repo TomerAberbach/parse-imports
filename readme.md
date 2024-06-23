@@ -172,8 +172,10 @@ console.log(imports[8])
 Use `parseImports` when you're able to await a `Promise` result and
 `parseImportsSync` otherwise.
 
-> [!IMPORTANT] You can only call `parseImportsSync` once the WASM has loaded.
-> You can be sure this has happened by awaiting the exported `wasmLoadPromise`.
+> [!IMPORTANT]
+>
+> You can only call `parseImportsSync` once the WASM has loaded. You can be sure
+> this has happened by awaiting the exported `wasmLoadPromise`.
 
 See the [type definitions](./src/index.d.ts) for details.
 
