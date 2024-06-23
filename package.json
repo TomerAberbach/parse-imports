@@ -25,7 +25,7 @@
   ],
   "type": "module",
   "engines": {
-    "node": ">= 12.17"
+    "node": ">= 18"
   },
   "exports": "./src/index.js",
   "module": "./src/index.js",
