@@ -27,15 +27,23 @@
   "engines": {
     "node": ">= 18"
   },
-  "exports": "./src/index.js",
-  "module": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "scripts": {
     "prepare": "tomer install",
     "format": "tomer format",
     "lint": "tomer lint",
     "typecheck": "tomer typecheck",
-    "test": "tomer test"
+    "test": "tomer test",
+    "build": "tomer build",
+    "clean": "tomer clean dist",
+    "prepublishOnly": "tomer build"
   },
   "prettier": "tomer/prettier-config",
   "dependencies": {
