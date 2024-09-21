@@ -19,9 +19,12 @@
   "bugs": {
     "url": "https://github.com/TomerAberbach/parse-imports/issues"
   },
-  "license": "Apache-2.0",
+  "license": "Apache-2.0 AND MIT",
   "files": [
-    "dist"
+    "dist",
+    "license-apache",
+    "license-mit",
+    "notice-apache"
   ],
   "type": "module",
   "engines": {
