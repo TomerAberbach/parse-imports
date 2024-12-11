@@ -17,6 +17,26 @@ test(`parseImportsSync throws before WASM load`, () => {
   )
 })
 
+test(`parseImports with meta`, async () => {
+  let code = `import a from 'b'with    {at: '12'}`
+  const imports: any[] = []
+  for (const $import of await parseImports(code)) {imports.push($import)}
+  expect(imports).toHaveLength(1)
+  expect(imports[0].meta).toStrictEqual({with: {at: '12'}})
+
+  code = `import a from 'b'   with    {at: '12'}`
+  imports.length = 0
+  for (const $import of await parseImports(code)) {imports.push($import)}
+  expect(imports).toHaveLength(1)
+  expect(imports[0].meta).toStrictEqual({with: {at: '12'}})
+
+  code = `await import("w", {with: {at: "1"}})`
+  imports.length = 0
+  for (const $import of await parseImports(code)) {imports.push($import)}
+  expect(imports).toHaveLength(1)
+  expect(imports[0].meta).toStrictEqual({with: {at: '1'}})
+})
+
 test.each([
   {
     path: `no-resolve.js`,
