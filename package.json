@@ -50,7 +50,7 @@
   },
   "prettier": "tomer/prettier-config",
   "dependencies": {
-    "es-module-lexer": "^1.5.3",
+    "es-module-lexer": "^1.5.4",
     "slashes": "^3.0.12"
   },
   "devDependencies": {

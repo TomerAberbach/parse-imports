@@ -1,4 +1,7 @@
 {
   "extends": "tomer/tsconfig",
+  "compilerOptions": {
+    "target": "es2015"
+  },
   "include": ["**/*"]
 }
