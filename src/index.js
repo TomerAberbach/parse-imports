@@ -23,8 +23,10 @@ export const parseImportsSync = (code, { resolveFrom } = {}) => {
       for (let {
         d: dynamicImportStartIndex,
         ss: statementStartIndex,
+        se: statementEndIndex,
         s: moduleSpecifierStartIndex,
         e: moduleSpecifierEndIndexExclusive,
+        a: metaStartIndex,
       } of imports) {
         const isImportMeta = dynamicImportStartIndex === -2
         if (isImportMeta) {
@@ -69,7 +71,24 @@ export const parseImportsSync = (code, { resolveFrom } = {}) => {
           importClause = parseImportClause(importClauseString)
         }
 
-        yield {
+        let meta
+        if (metaStartIndex > -1) {
+          let metaString = code.slice(metaStartIndex, statementEndIndex).trim()
+          if (isDynamicImport) {
+            metaString = metaString.slice(0, -1)
+            meta = runExpression(metaString)
+          } else {
+            const metaName = code
+              .slice(moduleSpecifierEndIndexExclusive, metaStartIndex)
+              .trim()
+            if (metaName) {
+              metaString = `{${metaName}:${metaString}}`
+            }
+            meta = runExpression(metaString)
+          }
+        }
+
+        const result = {
           startIndex: statementStartIndex,
           // Include the closing parenthesis for dynamic import
           endIndex: isDynamicImport
@@ -79,7 +98,17 @@ export const parseImportsSync = (code, { resolveFrom } = {}) => {
           moduleSpecifier,
           importClause,
         }
+
+        if (meta) {
+          result.meta = meta
+        }
+
+        yield result
       }
     },
   }
+}
+
+function runExpression(code) {
+  return new Function(`return ${code}`)()
 }
