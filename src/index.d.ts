@@ -20,12 +20,12 @@ export type Options = {
  * - 'package' otherwise
  */
 export type ModuleSpecifierType =
-  | 'invalid'
-  | 'absolute'
-  | 'relative'
-  | 'builtin'
-  | 'package'
-  | 'unknown'
+  | `invalid`
+  | `absolute`
+  | `relative`
+  | `builtin`
+  | `package`
+  | `unknown`
 
 /**
  * A type representing an import in JavaScript code.

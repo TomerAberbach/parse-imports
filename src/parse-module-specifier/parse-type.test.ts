@@ -1,6 +1,7 @@
 import { builtinModules } from 'node:module'
-import { fc, test } from 'tomer'
-import parseType from '../../src/parse-module-specifier/parse-type.js'
+import { fc, test } from '@fast-check/vitest'
+import { expect } from 'vitest'
+import parseType from './parse-type.js'
 
 test.each([
   {
