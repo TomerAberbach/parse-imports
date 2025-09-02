@@ -1,4 +1,4 @@
-import parseImports from './src/index.js'
+import { parseImports } from './src/index.js'
 
 const code = `
   import a from 'b'

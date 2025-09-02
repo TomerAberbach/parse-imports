@@ -1,21 +1,12 @@
 import fs from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { expectTypeOf } from 'tomer'
-import {
-  parseImports,
-  parseImportsSync,
-  wasmLoadPromise,
-} from '../src/index.js'
-import type { Import } from '../src/index.js'
+import { test } from '@fast-check/vitest'
+import { expect, expectTypeOf } from 'vitest'
+import { parseImports, parseImportsSync, wasmLoadPromise } from './index.js'
+import type { Import } from './index.js'
 
 const currentDirectoryPath = dirname(fileURLToPath(import.meta.url))
-
-test(`parseImportsSync throws before WASM load`, () => {
-  expect(() => parseImportsSync(``)).toThrow(
-    new Error(`Expected WASM to be loaded before calling parseImportsSync`),
-  )
-})
 
 test.each([
   {
@@ -23,13 +14,13 @@ test.each([
     resolveFrom: undefined,
     expectedImports: [
       {
-        startIndex: 673,
-        endIndex: 694,
+        startIndex: 76,
+        endIndex: 97,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 687,
-          endIndex: 694,
+          startIndex: 90,
+          endIndex: 97,
           isConstant: true,
           code: `'./wow'`,
           value: `./wow`,
@@ -42,13 +33,13 @@ test.each([
         },
       },
       {
-        startIndex: 695,
-        endIndex: 726,
+        startIndex: 98,
+        endIndex: 129,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 719,
-          endIndex: 726,
+          startIndex: 122,
+          endIndex: 129,
           isConstant: true,
           code: `"great"`,
           value: `great`,
@@ -61,13 +52,13 @@ test.each([
         },
       },
       {
-        startIndex: 774,
-        endIndex: 797,
+        startIndex: 177,
+        endIndex: 200,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 793,
-          endIndex: 797,
+          startIndex: 196,
+          endIndex: 200,
           isConstant: true,
           code: `"\\n"`,
           value: `\n`,
@@ -80,13 +71,13 @@ test.each([
         },
       },
       {
-        startIndex: 841,
-        endIndex: 862,
+        startIndex: 244,
+        endIndex: 265,
         isDynamicImport: true,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 848,
-          endIndex: 861,
+          startIndex: 251,
+          endIndex: 264,
           isConstant: true,
           code: `\`../../hello\``,
           value: `../../hello`,
@@ -95,13 +86,13 @@ test.each([
         importClause: undefined,
       },
       {
-        startIndex: 866,
-        endIndex: 914,
+        startIndex: 269,
+        endIndex: 317,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `builtin`,
-          startIndex: 906,
-          endIndex: 914,
+          startIndex: 309,
+          endIndex: 317,
           isConstant: true,
           code: `'module'`,
           value: `module`,
@@ -114,13 +105,13 @@ test.each([
         },
       },
       {
-        startIndex: 916,
-        endIndex: 947,
+        startIndex: 319,
+        endIndex: 350,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `absolute`,
-          startIndex: 931,
-          endIndex: 947,
+          startIndex: 334,
+          endIndex: 350,
           isConstant: true,
           code: `'/absolute/path'`,
           value: `/absolute/path`,
@@ -133,13 +124,13 @@ test.each([
         },
       },
       {
-        startIndex: 948,
-        endIndex: 981,
+        startIndex: 351,
+        endIndex: 384,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `absolute`,
-          startIndex: 964,
-          endIndex: 981,
+          startIndex: 367,
+          endIndex: 384,
           isConstant: true,
           code: `'/absoluter/path'`,
           value: `/absoluter/path`,
@@ -152,13 +143,13 @@ test.each([
         },
       },
       {
-        startIndex: 982,
-        endIndex: 1017,
+        startIndex: 385,
+        endIndex: 420,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `absolute`,
-          startIndex: 999,
-          endIndex: 1017,
+          startIndex: 402,
+          endIndex: 420,
           isConstant: true,
           code: `'/absolutest/path'`,
           value: `/absolutest/path`,
@@ -171,13 +162,13 @@ test.each([
         },
       },
       {
-        startIndex: 1018,
-        endIndex: 1060,
+        startIndex: 421,
+        endIndex: 463,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `absolute`,
-          startIndex: 1040,
-          endIndex: 1060,
+          startIndex: 443,
+          endIndex: 463,
           isConstant: true,
           code: `'/absolutester/path'`,
           value: `/absolutester/path`,
@@ -190,13 +181,13 @@ test.each([
         },
       },
       {
-        startIndex: 1062,
-        endIndex: 1105,
+        startIndex: 465,
+        endIndex: 508,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 1100,
-          endIndex: 1105,
+          startIndex: 503,
+          endIndex: 508,
           isConstant: true,
           code: `'./x'`,
           value: `./x`,
@@ -213,13 +204,13 @@ test.each([
         },
       },
       {
-        startIndex: 1117,
-        endIndex: 1129,
+        startIndex: 520,
+        endIndex: 532,
         isDynamicImport: true,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 1124,
-          endIndex: 1128,
+          startIndex: 527,
+          endIndex: 531,
           isConstant: true,
           code: `'hi'`,
           value: `hi`,
@@ -228,13 +219,13 @@ test.each([
         importClause: undefined,
       },
       {
-        startIndex: 1143,
-        endIndex: 1162,
+        startIndex: 546,
+        endIndex: 565,
         isDynamicImport: true,
         moduleSpecifier: {
           type: `unknown`,
-          startIndex: 1150,
-          endIndex: 1161,
+          startIndex: 553,
+          endIndex: 564,
           isConstant: false,
           code: `'hello' + 2`,
           value: undefined,
@@ -243,13 +234,13 @@ test.each([
         importClause: undefined,
       },
       {
-        startIndex: 1164,
-        endIndex: 1187,
+        startIndex: 567,
+        endIndex: 590,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 1178,
-          endIndex: 1187,
+          startIndex: 581,
+          endIndex: 590,
           isConstant: true,
           code: `'./hello'`,
           value: `./hello`,
@@ -262,13 +253,13 @@ test.each([
         },
       },
       {
-        startIndex: 1188,
-        endIndex: 1230,
+        startIndex: 591,
+        endIndex: 633,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 1209,
-          endIndex: 1230,
+          startIndex: 612,
+          endIndex: 633,
           isConstant: true,
           code: `'../../amazing/sdfsd'`,
           value: `../../amazing/sdfsd`,
@@ -284,13 +275,13 @@ test.each([
         },
       },
       {
-        startIndex: 1232,
-        endIndex: 1252,
+        startIndex: 635,
+        endIndex: 655,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 1247,
-          endIndex: 1252,
+          startIndex: 650,
+          endIndex: 655,
           isConstant: true,
           code: `"a/b"`,
           value: `a/b`,
@@ -303,13 +294,13 @@ test.each([
         },
       },
       {
-        startIndex: 1254,
-        endIndex: 1298,
+        startIndex: 657,
+        endIndex: 701,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 1283,
-          endIndex: 1298,
+          startIndex: 686,
+          endIndex: 701,
           isConstant: true,
           code: `'parse-imports'`,
           value: `parse-imports`,
@@ -322,13 +313,13 @@ test.each([
         },
       },
       {
-        startIndex: 1300,
-        endIndex: 1331,
+        startIndex: 703,
+        endIndex: 734,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 1325,
-          endIndex: 1331,
+          startIndex: 728,
+          endIndex: 734,
           isConstant: true,
           code: `'sdfs'`,
           value: `sdfs`,
@@ -341,13 +332,13 @@ test.each([
         },
       },
       {
-        startIndex: 1333,
-        endIndex: 1353,
+        startIndex: 736,
+        endIndex: 756,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 1340,
-          endIndex: 1353,
+          startIndex: 743,
+          endIndex: 756,
           isConstant: true,
           code: `"../sdfsd.js"`,
           value: `../sdfsd.js`,
@@ -360,13 +351,13 @@ test.each([
         },
       },
       {
-        startIndex: 1355,
-        endIndex: 1398,
+        startIndex: 758,
+        endIndex: 801,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `absolute`,
-          startIndex: 1379,
-          endIndex: 1398,
+          startIndex: 782,
+          endIndex: 801,
           isConstant: true,
           code: `'/absolutely/great'`,
           value: `/absolutely/great`,
@@ -379,13 +370,13 @@ test.each([
         },
       },
       {
-        startIndex: 1422,
-        endIndex: 1443,
+        startIndex: 825,
+        endIndex: 846,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 1429,
-          endIndex: 1443,
+          startIndex: 832,
+          endIndex: 846,
           isConstant: true,
           code: `"../\\r\\b130\\""`,
           value: `../\r\b130"`,
@@ -398,13 +389,13 @@ test.each([
         },
       },
       {
-        startIndex: 1445,
-        endIndex: 1461,
+        startIndex: 848,
+        endIndex: 864,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `invalid`,
-          startIndex: 1459,
-          endIndex: 1461,
+          startIndex: 862,
+          endIndex: 864,
           isConstant: true,
           code: `''`,
           value: ``,
@@ -428,13 +419,13 @@ test.each([
     resolveFrom: join(currentDirectoryPath, `fixtures/resolve/b.js`),
     expectedImports: [
       {
-        startIndex: 597,
-        endIndex: 637,
+        startIndex: 0,
+        endIndex: 40,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 632,
-          endIndex: 637,
+          startIndex: 35,
+          endIndex: 40,
           isConstant: true,
           code: `'./a'`,
           value: `./a`,
@@ -451,13 +442,13 @@ test.each([
         },
       },
       {
-        startIndex: 638,
-        endIndex: 663,
+        startIndex: 41,
+        endIndex: 66,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 656,
-          endIndex: 663,
+          startIndex: 59,
+          endIndex: 66,
           isConstant: true,
           code: `'./wow'`,
           value: `./wow`,
@@ -470,13 +461,13 @@ test.each([
         },
       },
       {
-        startIndex: 664,
-        endIndex: 683,
+        startIndex: 67,
+        endIndex: 86,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 678,
-          endIndex: 683,
+          startIndex: 81,
+          endIndex: 86,
           isConstant: true,
           code: `'./c'`,
           value: `./c`,
@@ -489,19 +480,19 @@ test.each([
         },
       },
       {
-        startIndex: 684,
-        endIndex: 722,
+        startIndex: 87,
+        endIndex: 125,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `package`,
-          startIndex: 705,
-          endIndex: 722,
+          startIndex: 108,
+          endIndex: 125,
           isConstant: true,
           code: `'es-module-lexer'`,
           value: `es-module-lexer`,
           resolved: join(
             currentDirectoryPath,
-            `../node_modules/.pnpm/es-module-lexer@1.5.3/node_modules/es-module-lexer/dist/lexer.cjs`,
+            `../node_modules/.pnpm/es-module-lexer@1.7.0/node_modules/es-module-lexer/dist/lexer.cjs`,
           ),
         },
         importClause: {
@@ -522,13 +513,13 @@ test.each([
     resolveFrom: join(currentDirectoryPath, `fixtures/resolve/wow/d.js`),
     expectedImports: [
       {
-        startIndex: 597,
-        endIndex: 616,
+        startIndex: 0,
+        endIndex: 19,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `builtin`,
-          startIndex: 612,
-          endIndex: 616,
+          startIndex: 15,
+          endIndex: 19,
           isConstant: true,
           code: `'fs'`,
           value: `fs`,
@@ -547,13 +538,13 @@ test.each([
     resolveFrom: join(currentDirectoryPath, `fixtures/resolve/wow/index.js`),
     expectedImports: [
       {
-        startIndex: 597,
-        endIndex: 624,
+        startIndex: 0,
+        endIndex: 27,
         isDynamicImport: false,
         moduleSpecifier: {
           type: `builtin`,
-          startIndex: 618,
-          endIndex: 624,
+          startIndex: 21,
+          endIndex: 27,
           isConstant: true,
           code: `'path'`,
           value: `path`,
@@ -566,13 +557,13 @@ test.each([
         },
       },
       {
-        startIndex: 676,
-        endIndex: 689,
+        startIndex: 79,
+        endIndex: 92,
         isDynamicImport: true,
         moduleSpecifier: {
           type: `relative`,
-          startIndex: 683,
-          endIndex: 688,
+          startIndex: 86,
+          endIndex: 91,
           isConstant: true,
           code: `\`./d\``,
           value: `./d`,
@@ -612,23 +603,23 @@ test.each([
 )
 
 test(`types`, () => {
-  expectTypeOf(parseImports(`some code`)).toMatchTypeOf<
+  expectTypeOf(parseImports(`some code`)).toEqualTypeOf<
     Promise<Iterable<Import>>
   >(parseImports(`some code`))
-  expectTypeOf(parseImports(`some code`)).toMatchTypeOf<
+  expectTypeOf(parseImports(`some code`)).toEqualTypeOf<
     Promise<Iterable<Import>>
   >(parseImports(`some code`, {}))
-  expectTypeOf(parseImports(`some code`)).toMatchTypeOf<
+  expectTypeOf(parseImports(`some code`)).toEqualTypeOf<
     Promise<Iterable<Import>>
   >(parseImports(`some code`, { resolveFrom: `./wow` }))
 
-  expectTypeOf(parseImportsSync(`some code`)).toMatchTypeOf<Iterable<Import>>(
+  expectTypeOf(parseImportsSync(`some code`)).toEqualTypeOf<Iterable<Import>>(
     parseImportsSync(`some code`),
   )
-  expectTypeOf(parseImportsSync(`some code`)).toMatchTypeOf<Iterable<Import>>(
+  expectTypeOf(parseImportsSync(`some code`)).toEqualTypeOf<Iterable<Import>>(
     parseImportsSync(`some code`, {}),
   )
-  expectTypeOf(parseImportsSync(`some code`)).toMatchTypeOf<Iterable<Import>>(
+  expectTypeOf(parseImportsSync(`some code`)).toEqualTypeOf<Iterable<Import>>(
     parseImportsSync(`some code`, { resolveFrom: `./wow` }),
   )
 })

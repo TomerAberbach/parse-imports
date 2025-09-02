@@ -1,4 +1,5 @@
-import parseImportClause from '../src/parse-import-clause/index.js'
+import { expect, test } from 'vitest'
+import parseImportClause from './index.js'
 
 // Import syntax: https://www.ecma-international.org/ecma-262/#sec-imports
 test.each([

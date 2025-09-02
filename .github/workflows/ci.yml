@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -9,10 +13,11 @@ concurrency:
 jobs:
   test:
     name: Node.js v${{ matrix.nodejs }} (${{ matrix.os }})
+    timeout-minutes: 5
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        nodejs: [18, 20]
+        nodejs: [22, 24]
         os: [ubuntu-latest, macOS-latest]
       fail-fast: false
     steps:
@@ -29,14 +34,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Format
-        run: pnpm format -- --no-write
+      - name: Build
+        run: pnpm build
 
       - name: Lint
-        run: pnpm lint -- --no-fix
+        run: pnpm lint --no-fix
+
+      - name: Format
+        run: pnpm format --no-write --check
 
       - name: Typecheck
         run: pnpm typecheck
 
       - name: Test
-        run: pnpm test
+        run: pnpm coverage
